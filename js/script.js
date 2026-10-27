@@ -1,20 +1,45 @@
-"use strict";
-
-const scoreButton = document.querySelector("#score-button");
-const score = document.querySelector("#score");
-const doubleCard = document.querySelector("#double-card");
-const hoverZone = document.querySelector("#hover-zone");
-const status = document.querySelector("#status");
 let points = 0;
-
-// Задание 1. Подключите click к scoreButton.
-// Внутри обработчика увеличьте points, затем обновите score.textContent и status.
-
-// Задание 2. Подключите dblclick к doubleCard.
-// Переключите класс is-selected и измените текст status.
-
-// Задание 3. Подключите mouseenter к hoverZone.
-// Добавьте класс is-hovered и покажите сообщение.
-
-// Задание 4. Подключите mouseleave к hoverZone.
-// Уберите класс is-hovered и верните исходный текст статуса.
+const scoreButton = document.querySelector('.score-button');
+const scoreDisplay = document.querySelector('.score');
+const doubleCard = document.querySelector('.double-card');
+const hoverZone = document.querySelector('.hover-zone');
+const statusDisplay = document.querySelector('.status');
+if (scoreButton) {
+  scoreButton.addEventListener('click', () => {
+    points += 1;
+    if (scoreDisplay) {
+      scoreDisplay.textContent = points;
+    }
+    
+    if (statusDisplay) {
+      statusDisplay.textContent = `Очки увеличены! Текущий счет: ${points}`;
+    }
+  });
+}
+if (doubleCard) {
+  doubleCard.addEventListener('dblclick', () => {
+    doubleCard.classList.toggle('is-selected');
+    
+    if (statusDisplay) {
+      if (doubleCard.classList.contains('is-selected')) {
+        statusDisplay.textContent = 'Карточка успешно выбрана (двойной клик)';
+      } else {
+        statusDisplay.textContent = 'Выделение с карточки снято';
+      }
+    }
+  });
+}
+if (hoverZone) {
+  hoverZone.addEventListener('mouseenter', () => {
+    hoverZone.classList.add('is-hovered');
+    if (statusDisplay) {
+      statusDisplay.textContent = 'Курсор вошел в зону наведения';
+    }
+  });
+  hoverZone.addEventListener('mouseleave', () => {
+    hoverZone.classList.remove('is-hovered');
+    if (statusDisplay) {
+      statusDisplay.textContent = 'Курсор покинул зону наведения';
+    }
+  });
+}
